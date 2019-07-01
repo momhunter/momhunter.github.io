@@ -161,189 +161,42 @@
 <h2 id="单表："><a href="#单表：" class="headerlink" title="单表："></a><strong>单表：</strong></h2><p><strong>顺序结构实现：</strong></p>
 <p>功能需求：无参数构造    有参数构造    析构    获取表长    按位查找    按值查找    按位插入    插入最后    按值删除    按位删除    删除最后    遍历</p>
 <hr>
-<p><code>template &lt;class t&gt;
-class ordertable
-{
-public:
-    ordertable() { length = 0; }            //无参数构造方法
-    ordertable(t* a);    //有参数构造方法
-    ~ordertable() {}                    //析构函数
-    int Length() { return length; }    //线性表长度
-    t Get(int i);            //按位查找
-    int Locate(t x);         //按值查找
-    bool Insert(int i, t x);  //按位插入
-    bool insertfinal(t dat); //插入最后
-    bool delet(int pos, t&amp; e);        //按位删除
-    bool delet(t e, t&amp; rec) //按值删除
-    bool deletefin(t&amp; rec) //删除最后
-    void show()const              //遍历
-    int getlen() //获取表长
-private:
-    t data[MaxSize];         //顺序表使用数组实现
-    int length;                     //存储顺序表的长度
-};</code></p>
+<p><code>template &lt;class t&gt;</code><br><code>class ordertable</code><br><code>{</code><br><code>public:</code><br>    <code>ordertable() { length = 0; }            //无参数构造方法</code><br>    <code>ordertable(t* a);    //有参数构造方法</code><br>    <code>~ordertable() {}                    //析构函数</code><br>    <code>int Length() { return length; }    //线性表长度</code><br>    <code>t Get(int i);            //按位查找</code><br>    <code>int Locate(t x);         //按值查找</code><br>    <code>bool Insert(int i, t x);  //按位插入</code><br>    <code>bool insertfinal(t dat); //插入最后</code><br>    <code>bool delet(int pos, t&amp; e);        //按位删除</code><br>    <code>bool delet(t e, t&amp; rec) //按值删除</code><br>    <code>bool deletefin(t&amp; rec) //删除最后</code><br>    <code>void show()const              //遍历</code><br>    <code>int getlen() //获取表长</code><br><code>private:</code><br>    <code>t data[MaxSize];         //顺序表使用数组实现</code><br>    <code>int length;                     //存储顺序表的长度</code><br><code>};</code></p>
 <p>有参数构造</p>
-<p><code>template&lt;class t&gt;
-ordertable&lt;t&gt;::ordertable(t* dat)
-{
-    int num = sizeof(dat); //获取数组长度
-    for (int i = 0; i &lt; num; i++)
-        data[i] = dat[i]; //遍历赋值
-    length = num; //数组长度赋值给length
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>ordertable&lt;t&gt;::ordertable(t* dat)</code><br><code>{</code><br>    <code>int num = sizeof(dat); //获取数组长度</code><br>    <code>for (int i = 0; i &lt; num; i++)</code><br>        <code>data[i] = dat[i]; //遍历赋值</code><br>    <code>length = num; //数组长度赋值给length</code><br><code>}</code></p>
 <p>按位查找</p>
-<p><code>template&lt;class t&gt;
-int ordertable&lt;t&gt;::find(int pos)
-{
-    if (pos&lt;1 &amp;&amp; pos&gt;length)
-        return -1;
-    else return data[pos - 1]; //pos是传进来的位置，因为数组从0开始，所以返回pos-1的值
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>int ordertable&lt;t&gt;::find(int pos)</code><br><code>{</code><br>    <code>if (pos&lt;1 &amp;&amp; pos&gt;length)</code><br>        <code>return -1;</code><br>    <code>else return data[pos - 1]; //pos是传进来的位置，因为数组从0开始，所以返回pos-1的值</code><br><code>}</code></p>
 <p>按值查找</p>
-<p><code>template&lt;class t&gt;
-int ordertable&lt;t&gt;::find(t dat)
-{
-    if (length &lt;= 0)
-    {
-        cout &lt;&lt; &quot;Table is empty!&quot;;
-        return -1;
-    }
-    else
-        for (int i = 0; i &lt; length; i++)
-        {
-            if (data[i] == dat)
-                return i+1; //数组从0开始，所以返回数组下标+1
-        }
-    cout &lt;&lt; &quot;Not found!&quot;;
-    return -1;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>int ordertable&lt;t&gt;::find(t dat)</code><br><code>{</code><br>    <code>if (length &lt;= 0)</code><br>    <code>{</code><br>        <code>cout &lt;&lt; &quot;Table is empty!&quot;;</code><br>        <code>return -1;</code><br>    <code>}</code><br>    <code>else</code><br>        <code>for (int i = 0; i &lt; length; i++)</code><br>        <code>{</code><br>            <code>if (data[i] == dat)</code><br>                <code>return i+1; //数组从0开始，所以返回数组下标+1</code><br>        <code>}</code><br>    <code>cout &lt;&lt; &quot;Not found!&quot;;</code><br>    <code>return -1;</code><br><code>}</code></p>
 <p>按位插入</p>
-<p><code>template&lt;class t&gt;
-bool ordertable&lt;t&gt;::insert(t dat, int pos)
-{
-    if (pos&lt;0 || pos&gt;length || pos &gt; MAXSIZE)
-        return false;
-    for (int i = length - 1; i &gt;= pos-1; --i)
-        data[i + 1] = data[i];</code></p>
-<p><code>//从数组最后一位length-1开始，往后移一位，直到要插入的位置pos-1都还要后移 一位
-    data[pos-1] = dat;
-    length++;
-    return true;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool ordertable&lt;t&gt;::insert(t dat, int pos)</code><br><code>{</code><br>    <code>if (pos&lt;0 || pos&gt;length || pos &gt; MAXSIZE)</code><br>        <code>return false;</code><br>    <code>for (int i = length - 1; i &gt;= pos-1; --i)</code><br>        <code>data[i + 1] = data[i];</code></p>
+<p><code>//从数组最后一位length-1开始，往后移一位，直到要插入的位置pos-1都还要后移 一位</code><br>    <code>data[pos-1] = dat;</code><br>    <code>length++;</code><br>    <code>return true;</code><br><code>}</code></p>
 <p>插入最后</p>
-<p><code>template&lt;class t&gt;
-bool ordertable&lt;t&gt;::insert(t dat)
-{
-    if (length == MAXSIZE - 1)
-        return false;
-    data[++length] = dat; //++length与赋值一个语句写完
-    return true;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool ordertable&lt;t&gt;::insert(t dat)</code><br><code>{</code><br>    <code>if (length == MAXSIZE - 1)</code><br>        <code>return false;</code><br>    <code>data[++length] = dat; //++length与赋值一个语句写完</code><br>    <code>return true;</code><br><code>}</code></p>
 <p>按位删除</p>
-<p><code>template&lt;class t&gt;
-bool ordertable&lt;t&gt;::delet(int pos, t &amp; e)
-{
-    if (pos&lt;0 || pos&gt;length)
-        return false;
-    e = data[pos-1]; //先将删除值返回给引用参数
-    for (int i = pos-1; i &lt; length ; i++)
-        data[i] = data[i + 1];</code></p>
-<p><code>//从要删除的位置即pos-1开始，后一个元素覆盖当前元素，直到leng-2被最后一个元素覆盖才停止
-    length--;
-    return true;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool ordertable&lt;t&gt;::delet(int pos, t &amp; e)</code><br><code>{</code><br>    <code>if (pos&lt;0 || pos&gt;length)</code><br>        <code>return false;</code><br>    <code>e = data[pos-1]; //先将删除值返回给引用参数</code><br>    <code>for (int i = pos-1; i &lt; length ; i++)</code><br>        <code>data[i] = data[i + 1];</code></p>
+<p><code>//从要删除的位置即pos-1开始，后一个元素覆盖当前元素，直到leng-2被最后一个元素覆盖才停止</code><br>    <code>length--;</code><br>    <code>return true;</code><br><code>}</code></p>
 <p>按值删除</p>
-<p><code>template&lt;class t&gt;
-bool ordertable&lt;t&gt;::delet(t e,t&amp; rec)
-{
-    int p;
-    p = find(e); //调用按值查找，得到下标数
-    rec = data[p - 1]; //返回删除值给引用参数
-    if (e&lt;0 || e&gt;length)
-    {
-        cout &lt;&lt; &quot;No existance!&quot;;
-        return false;
-    }
-    for (int i = p - 1; i &lt; length; ++i)
-        data[i] = data[i + 1];</code></p>
-<p><code>//从要删除的位置即pos-1开始，后一个元素覆盖当前元素，直到leng-2被最后一个元素覆盖才停止
-    length--;
-    return true;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool ordertable&lt;t&gt;::delet(t e,t&amp; rec)</code><br><code>{</code><br>    <code>int p;</code><br>    <code>p = find(e); //调用按值查找，得到下标数</code><br>    <code>rec = data[p - 1]; //返回删除值给引用参数</code><br>    <code>if (e&lt;0 || e&gt;length)</code><br>    <code>{</code><br>        <code>cout &lt;&lt; &quot;No existance!&quot;;</code><br>        <code>return false;</code><br>    <code>}</code><br>    <code>for (int i = p - 1; i &lt; length; ++i)</code><br>        <code>data[i] = data[i + 1];</code></p>
+<p><code>//从要删除的位置即pos-1开始，后一个元素覆盖当前元素，直到leng-2被最后一个元素覆盖才停止</code><br>    <code>length--;</code><br>    <code>return true;</code><br><code>}</code></p>
 <p>删除最后</p>
-<p><code>template&lt;class t&gt;
-bool ordertable&lt;t&gt;::deletefin(t&amp; rec)
-{
-    if (length == 0)
-        return false;
-    rec = data[length - 1]; //返回删除值给引用参数
-    --length;
-    return true;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool ordertable&lt;t&gt;::deletefin(t&amp; rec)</code><br><code>{</code><br>    <code>if (length == 0)</code><br>        <code>return false;</code><br>    <code>rec = data[length - 1]; //返回删除值给引用参数</code><br>    <code>--length;</code><br>    <code>return true;</code><br><code>}</code></p>
 <p>遍历</p>
-<p><code>template&lt;class t&gt;
-void ordertable&lt;t&gt;::show()const
-{
-    for (int i = 0; i &lt; length; i++)
-        cout &lt;&lt; data[i] &lt;&lt; &#39;\t&#39;;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>void ordertable&lt;t&gt;::show()const</code><br><code>{</code><br>    <code>for (int i = 0; i &lt; length; i++)</code><br>        <code>cout &lt;&lt; data[i] &lt;&lt; &#39;\t&#39;;</code><br><code>}</code></p>
 <p>获取表长</p>
-<p><code>template&lt;class t&gt;
-int ordertable&lt;t&gt;::getlen()
-{
-    return length;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>int ordertable&lt;t&gt;::getlen()</code><br><code>{</code><br>    <code>return length;</code><br><code>}</code></p>
 <p><strong>链式结构实现：</strong></p>
 <p>首先定义模版结点结构：</p>
-<p><code>template&lt;class DataType&gt;
-struct Node
-{
-DataType data;              *//存储数据*
-Node&lt;DataType&gt; *next;       *//存储下一个结点的地址*
-};</code></p>
+<p><code>template&lt;class DataType&gt;</code><br><code>struct Node</code><br><code>{</code><br><code>DataType data;              *//存储数据*</code><br><code>Node&lt;DataType&gt; *next;       *//存储下一个结点的地址*</code><br><code>};</code></p>
 <p>功能需求：无参数构造    有参数构造    析构    获取表长    获取头结点    按值查找    按位查找</p>
 <p>头插法    尾插法    删除    遍历</p>
 <hr>
-<p><code>template&lt;class DataType&gt;
-class LinkList
-{
-public:
-    LinkList();    //无参数构造
-    LinkList(DataType a[], int n);    //有参数构造
-    ~LinkList();    //析构
-    int Length();    //获取长度
-    Node&lt;DataType&gt;* gethead();    //获取头结点
-    DataType Get(int i);    //按位查找
-    int Locate(DataType x);    //按值查找
-    void Insert(int i, DataType x);    //插入
-    DataType Delete(int i);    //删除
-    void PrintList();    //遍历
-private:
-    Node&lt;DataType&gt;* first;
-};</code></p>
+<p><code>template&lt;class DataType&gt;</code><br><code>class LinkList</code><br><code>{</code><br><code>public:</code><br>    <code>LinkList();    //无参数构造</code><br>    <code>LinkList(DataType a[], int n);    //有参数构造</code><br>    <code>~LinkList();    //析构</code><br>    <code>int Length();    //获取长度</code><br>    <code>Node&lt;DataType&gt;* gethead();    //获取头结点</code><br>    <code>DataType Get(int i);    //按位查找</code><br>    <code>int Locate(DataType x);    //按值查找</code><br>    <code>void Insert(int i, DataType x);    //插入</code><br>    <code>DataType Delete(int i);    //删除</code><br>    <code>void PrintList();    //遍历</code><br><code>private:</code><br>    <code>Node&lt;DataType&gt;* first;</code><br><code>};</code></p>
 <p>无参数构造</p>
-<p><code>template&lt;class DataType&gt;
-LinkList&lt;DataType&gt;::LinkList()
-{
-first = new Node&lt;DataType&gt;;    //申请结点空间，赋给first成员
-first-&gt;next = NULL;    //将新申请结点的next设置为NULL能减少bug
-}</code></p>
+<p><code>template&lt;class DataType&gt;</code><br><code>LinkList&lt;DataType&gt;::LinkList()</code><br><code>{</code><br><code>first = new Node&lt;DataType&gt;;    //申请结点空间，赋给first成员</code><br><code>first-&gt;next = NULL;    //将新申请结点的next设置为NULL能减少bug</code><br><code>}</code></p>
 <p>有参数构造</p>
 <p>尾插法</p>
-<p><code>template&lt;class t&gt;
-linkList&lt;t&gt;::linkList(t dat[], int n)
-{
-    first = new Node&lt;t&gt;; //申请结点空间，赋给first成员
-    Node&lt;t&gt;* ch = first; //定义一个结点，指向first成员，即此ch结点的next与first的next是同一个结点，目的是不破坏first成员的结构，仅对first的next指向做辅助，保存每次向后移的前置结点
-    for (int i = 0; i &lt; n; i++)
-    {
-        Node&lt;t&gt;* tmp = new Node&lt;t&gt;; //定义一个临时结点，申请结点空间，每次循环结束都会释放此结点，此临时结点作用仅是申请一块空间，给此空间赋予数组里的数据，让next指向此空间
-        tmp-&gt;data = dat[i]; //将数组里的数据赋给临时结点的data成员
-        ch-&gt;next = tmp; //将ch结点的next即first的next指向临时结点所指的空间
-        ch = tmp; //ch指向tmp所指内存空间，即first的next，下次插入就从first的next的next插入，以此类推
-    }
-    ch-&gt;next = NULL;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>linkList&lt;t&gt;::linkList(t dat[], int n)</code><br><code>{</code><br>    <code>first = new Node&lt;t&gt;; //申请结点空间，赋给first成员</code><br>    <code>Node&lt;t&gt;* ch = first; //定义一个结点，指向first成员，即此ch结点的next与first的next是同一个结点，目的是不破坏first成员的结构，仅对first的next指向做辅助，保存每次向后移的前置结点</code><br>    <code>for (int i = 0; i &lt; n; i++)</code><br>    <code>{</code><br>        <code>Node&lt;t&gt;* tmp = new Node&lt;t&gt;; //定义一个临时结点，申请结点空间，每次循环结束都会释放此结点，此临时结点作用仅是申请一块空间，给此空间赋予数组里的数据，让next指向此空间</code><br>        <code>tmp-&gt;data = dat[i]; //将数组里的数据赋给临时结点的data成员</code><br>        <code>ch-&gt;next = tmp; //将ch结点的next即first的next指向临时结点所指的空间</code><br>        <code>ch = tmp; //ch指向tmp所指内存空间，即first的next，下次插入就从first的next的next插入，以此类推</code><br>    <code>}</code><br>    <code>ch-&gt;next = NULL;</code><br><code>}</code></p>
 <p>头插法</p>
 <p><code>template&lt;class DataType&gt;</code><br><code>LinkList&lt;DataType&gt;::LinkList(DataType a[], int n)</code><br><code>{</code><br>    <code>first = new Node&lt;DataType&gt;; //申请结点空间，赋给first成员</code><br>    <code>first-&gt;next = NULL; //将next置为NULL，减少bug</code><br>    <code>for (int i = 0; i &lt; n; i++)</code><br>    <code>{</code><br>        <code>Node&lt;DataType&gt; *s = new Node&lt;DataType&gt;; //定义一个临时结点，申请结点空间</code><br>        <code>s-&gt;data = a[i]; //将数组里的数据赋给临时结点的data成员</code><br>        <code>s-&gt;next = first-&gt;next; //将临时结点的next指向first的next的内存空间，防止first的后置结点丢失</code><br>        <code>first-&gt;next = s; //将first的next指向临时结点的内存空间，最后释放临时结点</code><br>    <code>}</code></p>
 <p><code>}</code></p>
