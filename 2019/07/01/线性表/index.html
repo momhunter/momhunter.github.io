@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Kyrie&#39;s log">
 <meta property="og:description" content="线性表">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-01T12:00:28.010Z">
+<meta property="og:updated_time" content="2019-07-02T01:16:36.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kyrie&#39;s log">
 <meta name="twitter:description" content="线性表">
@@ -210,58 +210,14 @@
 <p><code>template&lt;class DataType&gt;</code><br><code>int LinkList&lt;DataType&gt;::Length()</code><br><code>{</code><br>    <code>Node&lt;DataType&gt;* p = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点，头结点不保存任何数据，所以从next开始计数</code><br>    <code>int count = 0;</code><br>    <code>while (p != NULL) //当此链表不为空时，一直循环</code><br>    <code>{</code><br>        <code>p = p-&gt;next; //将临时结点往后移动</code><br>        <code>count++; //计数+1</code><br>    <code>}</code><br>    <code>return count;</code></p>
 <p><code>}</code></p>
 <p>获取头结点</p>
-<p><code>template&lt;class t&gt;
-Node&lt;t&gt;* listt&lt;t&gt;:: gethead()
-{
-    return first;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>Node&lt;t&gt;* listt&lt;t&gt;:: gethead()</code><br><code>{</code><br>    <code>return first;</code><br><code>}</code></p>
 <p>按位查找</p>
-<p><code>template&lt;class t&gt;
-t listt&lt;t&gt;::find(int p)
-{
-    if (first == NULL)
-    {
-        cout &lt;&lt; &quot;List is empty!&quot;; //检查链表是否为空
-        return -1;
-    }
-    Node&lt;t&gt;* tmp = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点
-    int count = 1; //因为是从第一个数据结点开始，不同于数组下标从0开始，所以初始化为1
-    while (tmp != NULL&amp;&amp;count&lt;p) //当表不为空，并且当前位置没有到达或超过要查找的位置时一直循环
-    {
-        tmp = tmp-&gt;next; //临时结点往后移动
-        ++count; //当前位置记录数+1
-    }
-    if (tmp == NULL) //若当前位置刚好为空，则抛出错误
-    {
-        cout &lt;&lt; &quot;Not found!&quot;;
-        return -1;
-    }
-    return tmp-&gt;data;
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>t listt&lt;t&gt;::find(int p)</code><br><code>{</code><br>    <code>if (first == NULL)</code><br>    <code>{</code><br>        <code>cout &lt;&lt; &quot;List is empty!&quot;; //检查链表是否为空</code><br>        <code>return -1;</code><br>    <code>}</code><br>    <code>Node&lt;t&gt;* tmp = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点</code><br>    <code>int count = 1; //因为是从第一个数据结点开始，不同于数组下标从0开始，所以初始化为1</code><br>    <code>while (tmp != NULL&amp;&amp;count&lt;p) //当表不为空，并且当前位置没有到达或超过要查找的位置时一直循环</code><br>    <code>{</code><br>        <code>tmp = tmp-&gt;next; //临时结点往后移动</code><br>        <code>++count; //当前位置记录数+1</code><br>    <code>}</code><br>    <code>if (tmp == NULL) //若当前位置刚好为空，则抛出错误</code><br>    <code>{</code><br>        <code>cout &lt;&lt; &quot;Not found!&quot;;</code><br>        <code>return -1;</code><br>    <code>}</code><br>    <code>return tmp-&gt;data;</code><br><code>}</code></p>
 <p>按值查找</p>
 <p><code>template&lt;class DataType&gt;</code><br><code>int LinkList&lt;DataType&gt;::Locate(DataType x)</code><br><code>{</code><br>    <code>Node&lt;DataType&gt; *p = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点</code><br>    <code>int count = 1; //因为是从第一个数据结点开始，不同于数组下标从0开始，所以初始化为1</code><br>    <code>while (p != NULL) //当表不为空，一直循环</code><br>    <code>{</code><br>        <code>if (p-&gt;data == x) return count; //如果此结点数据等于要查找的数据，则返回当前记录数</code><br>        <code>p = p-&gt;next; //如果不匹配，则临时结点往后移动</code><br>        <code>count++; //当前位置记录数+1</code><br>    <code>}</code><br>    <code>return 0;</code></p>
 <p><code>}</code></p>
 <p>按位插入</p>
-<p><code>template&lt;class t&gt;
-bool LinkList&lt;t&gt;::insert(t dat, int p)
-{
-    Node&lt;t&gt;* tmp = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点的
-    int count = 1; //因为是从第一个数据结点开始，不同于数组下标从0开始，所以初始化为1
-    while (tmp != NULL &amp;&amp; count &lt; p-1) //当表不为空，并且当前位置没有到达或超过要查找的位置时一直循环
-    {
-        tmp = tmp-&gt;next; //临时结点往后移动
-        ++count; //当前记录位置+1
-    }
-    if (tmp == NULL) //若当前位置刚好为空，则返回false
-        return false;
-    else
-    {
-        Node&lt;t&gt;* back = new Node&lt;t&gt;; //定义一个临时结点2，申请结点空间
-        back-&gt;data = dat; //将数据赋给临时结点2数据成员
-        back-&gt;next = tmp-&gt;next; //临时结点2的next指向临时结点1的next，目的是保存临时结点1的后续结点
-        tmp-&gt;next = back; //将临时结点1的next指向临时结点2
-    }
-}</code></p>
+<p><code>template&lt;class t&gt;</code><br><code>bool LinkList&lt;t&gt;::insert(t dat, int p)</code><br><code>{</code><br>    <code>Node&lt;t&gt;* tmp = first-&gt;next; //定义一个临时结点，指向first的next，因为默认是带有头结点的</code><br>    <code>int count = 1; //因为是从第一个数据结点开始，不同于数组下标从0开始，所以初始化为1</code><br>    <code>while (tmp != NULL &amp;&amp; count &lt; p-1) //当表不为空，并且当前位置没有到达或超过要查找的位置时一直循环</code><br>    <code>{</code><br>        <code>tmp = tmp-&gt;next; //临时结点往后移动</code><br>        <code>++count; //当前记录位置+1</code><br>    <code>}</code><br>    <code>if (tmp == NULL) //若当前位置刚好为空，则返回false</code><br>        <code>return false;</code><br>    <code>else</code><br>    <code>{</code><br>        <code>Node&lt;t&gt;* back = new Node&lt;t&gt;; //定义一个临时结点2，申请结点空间</code><br>        <code>back-&gt;data = dat; //将数据赋给临时结点2数据成员</code><br>        <code>back-&gt;next = tmp-&gt;next; //临时结点2的next指向临时结点1的next，目的是保存临时结点1的后续结点</code><br>        <code>tmp-&gt;next = back; //将临时结点1的next指向临时结点2</code><br>    <code>}</code><br><code>}</code></p>
 <p>按位删除</p>
 <p><code>template&lt;class t&gt;</code><br><code>t LinkList&lt;t&gt;::delet(int p)</code><br><code>{</code><br>    <code>Node&lt;t&gt;* tmp = first-&gt;next; //定义一个临时结点，指向first的next</code><br>    <code>int count = 1; //带头结点，且不是与数组相同的从0开始，所以初始化为1</code><br>    <code>while (tmp != NULL &amp;&amp; count &lt; p - 1)</code><br>    <code>{</code><br>        <code>tmp = tmp-&gt;next;</code><br>        <code>++count;</code><br>    <code>}</code><br>    <code>if (tmp == NULL || tmp-&gt;next == NULL)</code><br>    <code>{</code><br>        <code>cout &lt;&lt; &quot;Error!&quot;;</code><br>        <code>return -1;</code><br>    <code>}</code><br>    <code>else</code><br>    <code>{</code><br>        <code>Node&lt;t&gt;* back = tmp-&gt;next; //定义临时结点2，指向临时结点1的next</code><br>        <code>int x = back-&gt;data; //将删除结点的值返回</code><br>        <code>tmp-&gt;next = tmp-&gt;next-&gt;next; //将临时结点1的next指向当前要删除结点的next，放置后续结点丢失</code><br>        <code>delete back; //释放当前删除结点</code><br>        <code>return x;</code><br>    <code>}</code><br><code>}</code></p>
 <p>遍历</p>
