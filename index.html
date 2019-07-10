@@ -157,204 +157,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>基于c++模版类实现</p>
-<hr>
-<p><strong>顺序结构实现：</strong></p>
-<p>功能实现需求：添加，删除，取出元素，取得大小，判断是否为空，判断是否为满。</p>
-<hr>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>class stack</code></p>
-<p><code>{</code></p>
-<p>​    <code>int top;</code></p>
-<p>​    <code>t *data;</code></p>
-<p>​    <code>int max;</code></p>
-<p><code>public:</code></p>
-<p>​    <code>stack();</code></p>
-<p>​    <code>stack(int num);</code></p>
-<p>​    <code>stack(t d[],int num);</code></p>
-<p>​    <code>~stack();</code></p>
-<p>​    <code>bool isempty(){return top==-1;}</code></p>
-<p>​    <code>bool isfull(){return top==max-1;}</code></p>
-<p>​    <code>bool pop(t&amp; re);</code></p>
-<p>​    <code>bool push(t dat);</code></p>
-<p>​    <code>t peek();</code></p>
-<p>​    <code>int getsize();</code></p>
-<p>​    <code>void setsize(int num);</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::stack()</code></p>
-<p><code>{</code></p>
-<p>​    <code>data=new t[10];</code></p>
-<p>​    <code>top=-1;</code></p>
-<p>​    <code>max=10;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::stack(int num)</code></p>
-<p><code>{</code></p>
-<p>​    <code>data=new t[num];</code></p>
-<p>​    <code>top=-1;</code></p>
-<p>​    <code>max=num;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::stack(t d[],int num)</code></p>
-<p><code>{</code></p>
-<p>​    <code>data=new t[num];</code></p>
-<p>​    <code>for(int i=0;i&lt;num;++i)</code></p>
-<p>​        <code>data[i]=d[i];</code></p>
-<p>​    <code>top=num-1;</code></p>
-<p>​    <code>max=num+10;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::push(t dat)</code></p>
-<p><code>{</code></p>
-<p>​    <code>if(!isfull())</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>data[top++]=dat;</code></p>
-<p>​        <code>return true;</code></p>
-<p>​    <code>}</code></p>
-<p>​    <code>else</code></p>
-<p>​        <code>return false;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>t stack&lt;t&gt;::peek()</code></p>
-<p><code>{</code></p>
-<p>​    <code>return data[top];</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::pop(t &amp;re)</code></p>
-<p><code>{</code></p>
-<p>​    <code>if(!isempty())</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>re=data[top--];</code></p>
-<p>​        <code>return false;</code></p>
-<p>​    <code>}</code></p>
-<p>​    <code>else</code></p>
-<p>​        <code>return true;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>int stack&lt;t&gt;getsize()</code></p>
-<p><code>{</code></p>
-<p>​    <code>return top+1;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>void stack&lt;t&gt;::setsize(int num)</code></p>
-<p><code>{</code></p>
-<p>​    <code>t tempdata[top];</code></p>
-<p>​    <code>for(int i=top,int j=0;i&gt;-1;--i,++j)</code></p>
-<p>​        <code>tempdata[j]=data[j];</code></p>
-<p>​    <code>delete[] data;</code></p>
-<p>​    <code>data=new t[num];</code></p>
-<p>​    <code>for(int i=0;i&lt;top+1;++i)</code></p>
-<p>​        <code>data[i]=tempdata[i];</code></p>
-<p>​    <code>max=num;</code></p>
-<p><code>}</code></p>
-<p><strong>链式结构实现</strong></p>
-<p>功能实现需求：出栈，入栈，获取栈顶元素，是否为空，是否为满。</p>
-<hr>
-<p>先定义结点类：</p>
-<p><code>template&lt;typename t&gt;</code></p>
-<p><code>struct snode</code></p>
-<p><code>{</code></p>
-<p>​    <code>t data;</code></p>
-<p>​    <code>snode *next;</code></p>
-<p><code>}</code></p>
-<p>然后是类定义：</p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>class stack</code></p>
-<p><code>{</code></p>
-<p>​    <code>unsigned int count;</code></p>
-<p>​    <code>unsigned int max;</code></p>
-<p>​    <code>snode&lt;t&gt;* top;</code></p>
-<p><code>public:</code></p>
-<p>​    <code>stack();</code></p>
-<p>​    <code>stack(t* d,int num);</code></p>
-<p>​    <code>~stack();</code></p>
-<p>​    <code>bool push(t dat);</code></p>
-<p>​    <code>bool pop(t&amp; re);</code></p>
-<p>​    <code>t gettop();</code></p>
-<p>​    <code>bool isempty();</code></p>
-<p>​    <code>bool isfull();</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::stack()</code></p>
-<p><code>{</code></p>
-<p>​    <code>top=new snode&lt;t&gt;;</code></p>
-<p>​    <code>top-&gt;next=NULL;</code></p>
-<p>​    <code>count=0;</code></p>
-<p>​    <code>max=10;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::stack(t* d,int num)</code></p>
-<p><code>{</code></p>
-<p>​    <code>top=new snode&lt;t&gt;;</code></p>
-<p>​    <code>top-&gt;next=NULL;</code></p>
-<p>​    <code>for(int i=0;i&lt;num;++i)</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>snode&lt;t&gt;* temp=new snode&lt;t&gt;;</code></p>
-<p>​        <code>temp-&gt;next=NULL;</code></p>
-<p>​        <code>temp-&gt;data=d[i];</code></p>
-<p>​        <code>temp-&gt;next=top-&gt;next;</code></p>
-<p>​        <code>top-&gt;next=temp;</code></p>
-<p>​    <code>}</code></p>
-<p>​    <code>count=0;</code></p>
-<p>​    <code>max=num;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>stack&lt;t&gt;::~stack()</code></p>
-<p><code>{</code></p>
-<p>​    <code>while(top-&gt;next!=NULL)</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>snode&lt;t&gt;* temp=top-&gt;next;</code></p>
-<p>​        <code>top-&gt;next=temp-&gt;next;</code></p>
-<p>​        <code>delete temp;</code></p>
-<p>​    <code>}</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::push(t dat)</code></p>
-<p><code>{</code></p>
-<p>​    <code>if(isfull())</code></p>
-<p>​        <code>return false;</code></p>
-<p>​    <code>else</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>snode&lt;t&gt;* temp=new snode&lt;t&gt;;</code></p>
-<p>​        <code>temp-&gt;data=dat;</code></p>
-<p>​        <code>temp-&gt;next=top-&gt;next;</code></p>
-<p>​        <code>top-&gt;next=temp;</code></p>
-<p>​        <code>++count;</code></p>
-<p>​        <code>return true;</code></p>
-<p>​    <code>}</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::pop(t&amp; re)</code></p>
-<p><code>{</code></p>
-<p>​    <code>if(isempty())</code></p>
-<p>​        <code>return false;</code></p>
-<p>​    <code>else</code></p>
-<p>​    <code>{</code></p>
-<p>​        <code>re=top-&gt;data;</code></p>
-<p>​        <code>snode&lt;t&gt;* temp=top-&gt;next;</code></p>
-<p>​        <code>top-&gt;next=temp-&gt;next</code></p>
-<p>​        <code>delete temp;</code></p>
-<p>​        <code>--count;</code></p>
-<p>​        <code>return true;</code></p>
-<p>​    <code>}</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>t stack&lt;t&gt;::gettop()</code></p>
-<p><code>{</code></p>
-<p>​    <code>return top-&gt;next-&gt;data;</code></p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::isempty()</code></p>
-<p><code>{</code></p>
-<p>​    <code>return count==0;</code>    </p>
-<p><code>}</code></p>
-<p><code>template&lt;class t&gt;</code></p>
-<p><code>bool stack&lt;t&gt;::isfull()</code></p>
-<p><code>{</code></p>
-<p>​    <code>return (count&gt;=max);</code></p>
-<p><code>}</code></p>
-
+        <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1>
+        
       
 
       
@@ -1024,7 +828,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color2">Cthulu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1032,11 +836,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Religion</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Cthulu</a>
+                <a href="javascript:void(0)" class="js-tag color4">Religion</a>
               </li>
              
               <li class="article-tag-list-item">
