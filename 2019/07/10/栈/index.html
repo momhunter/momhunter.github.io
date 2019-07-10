@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://momhunter.github.io">
-  <title>Archives | Kyrie&#39;s log</title>
+  <title>Kyrie&#39;s log</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="栈基于c++模版类实现  顺序结构实现： 功能实现需求：添加，删除，取出元素，取得大小，判断是否为空，判断是否为满。  template&amp;lt;class t&amp;gt; class stack { ​    int top; ​    t *data; ​    int max; public: ​    stack(); ​    stack(int num); ​    stack(t d[],">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Kyrie&#39;s log">
-<meta property="og:url" content="https://momhunter.github.io/archives/page/2/index.html">
+<meta property="og:url" content="https://momhunter.github.io/2019/07/10/栈/index.html">
 <meta property="og:site_name" content="Kyrie&#39;s log">
+<meta property="og:description" content="栈基于c++模版类实现  顺序结构实现： 功能实现需求：添加，删除，取出元素，取得大小，判断是否为空，判断是否为满。  template&amp;lt;class t&amp;gt; class stack { ​    int top; ​    t *data; ​    int max; public: ​    stack(); ​    stack(int num); ​    stack(t d[],">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-10T15:37:06.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kyrie&#39;s log">
+<meta name="twitter:description" content="栈基于c++模版类实现  顺序结构实现： 功能实现需求：添加，删除，取出元素，取得大小，判断是否为空，判断是否为满。  template&amp;lt;class t&amp;gt; class stack { ​    int top; ​    t *data; ​    int max; public: ​    stack(); ​    stack(int num); ​    stack(t d[],">
   
     <link rel="alternative" href="/atom.xml" title="Kyrie&#39;s log" type="application/atom+xml">
   
@@ -150,89 +154,336 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-栈" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>基于c++模版类实现</p>
+<hr>
+<p><strong>顺序结构实现：</strong></p>
+<p>功能实现需求：添加，删除，取出元素，取得大小，判断是否为空，判断是否为满。</p>
+<hr>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>class stack</code></p>
+<p><code>{</code></p>
+<p>​    <code>int top;</code></p>
+<p>​    <code>t *data;</code></p>
+<p>​    <code>int max;</code></p>
+<p><code>public:</code></p>
+<p>​    <code>stack();</code></p>
+<p>​    <code>stack(int num);</code></p>
+<p>​    <code>stack(t d[],int num);</code></p>
+<p>​    <code>~stack();</code></p>
+<p>​    <code>bool isempty(){return top==-1;}</code></p>
+<p>​    <code>bool isfull(){return top==max-1;}</code></p>
+<p>​    <code>bool pop(t&amp; re);</code></p>
+<p>​    <code>bool push(t dat);</code></p>
+<p>​    <code>t peek();</code></p>
+<p>​    <code>int getsize();</code></p>
+<p>​    <code>void setsize(int num);</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::stack()</code></p>
+<p><code>{</code></p>
+<p>​    <code>data=new t[10];</code></p>
+<p>​    <code>top=-1;</code></p>
+<p>​    <code>max=10;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::stack(int num)</code></p>
+<p><code>{</code></p>
+<p>​    <code>data=new t[num];</code></p>
+<p>​    <code>top=-1;</code></p>
+<p>​    <code>max=num;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::stack(t d[],int num)</code></p>
+<p><code>{</code></p>
+<p>​    <code>data=new t[num];</code></p>
+<p>​    <code>for(int i=0;i&lt;num;++i)</code></p>
+<p>​        <code>data[i]=d[i];</code></p>
+<p>​    <code>top=num-1;</code></p>
+<p>​    <code>max=num+10;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::push(t dat)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(!isfull())</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>data[top++]=dat;</code></p>
+<p>​        <code>return true;</code></p>
+<p>​    <code>}</code></p>
+<p>​    <code>else</code></p>
+<p>​        <code>return false;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>t stack&lt;t&gt;::peek()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return data[top];</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::pop(t &amp;re)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(!isempty())</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>re=data[top--];</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>}</code></p>
+<p>​    <code>else</code></p>
+<p>​        <code>return true;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>int stack&lt;t&gt;getsize()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return top+1;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>void stack&lt;t&gt;::setsize(int num)</code></p>
+<p><code>{</code></p>
+<p>​    <code>t tempdata[top];</code></p>
+<p>​    <code>for(int i=top,int j=0;i&gt;-1;--i,++j)</code></p>
+<p>​        <code>tempdata[j]=data[j];</code></p>
+<p>​    <code>delete[] data;</code></p>
+<p>​    <code>data=new t[num];</code></p>
+<p>​    <code>for(int i=0;i&lt;top+1;++i)</code></p>
+<p>​        <code>data[i]=tempdata[i];</code></p>
+<p>​    <code>max=num;</code></p>
+<p><code>}</code></p>
+<p><strong>链式结构实现</strong></p>
+<p>功能实现需求：出栈，入栈，获取栈顶元素，是否为空，是否为满。</p>
+<hr>
+<p>先定义结点类：</p>
+<p><code>template&lt;typename t&gt;</code></p>
+<p><code>struct snode</code></p>
+<p><code>{</code></p>
+<p>​    <code>t data;</code></p>
+<p>​    <code>snode *next;</code></p>
+<p><code>}</code></p>
+<p>然后是类定义：</p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>class stack</code></p>
+<p><code>{</code></p>
+<p>​    <code>unsigned int count;</code></p>
+<p>​    <code>unsigned int max;</code></p>
+<p>​    <code>snode&lt;t&gt;* top;</code></p>
+<p><code>public:</code></p>
+<p>​    <code>stack();</code></p>
+<p>​    <code>stack(t* d,int num);</code></p>
+<p>​    <code>~stack();</code></p>
+<p>​    <code>bool push(t dat);</code></p>
+<p>​    <code>bool pop(t&amp; re);</code></p>
+<p>​    <code>t gettop();</code></p>
+<p>​    <code>bool isempty();</code></p>
+<p>​    <code>bool isfull();</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::stack()</code></p>
+<p><code>{</code></p>
+<p>​    <code>top=new snode&lt;t&gt;;</code></p>
+<p>​    <code>top-&gt;next=NULL;</code></p>
+<p>​    <code>count=0;</code></p>
+<p>​    <code>max=10;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::stack(t* d,int num)</code></p>
+<p><code>{</code></p>
+<p>​    <code>top=new snode&lt;t&gt;;</code></p>
+<p>​    <code>top-&gt;next=NULL;</code></p>
+<p>​    <code>for(int i=0;i&lt;num;++i)</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>snode&lt;t&gt;* temp=new snode&lt;t&gt;;</code></p>
+<p>​        <code>temp-&gt;next=NULL;</code></p>
+<p>​        <code>temp-&gt;data=d[i];</code></p>
+<p>​        <code>temp-&gt;next=top-&gt;next;</code></p>
+<p>​        <code>top-&gt;next=temp;</code></p>
+<p>​    <code>}</code></p>
+<p>​    <code>count=0;</code></p>
+<p>​    <code>max=num;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>stack&lt;t&gt;::~stack()</code></p>
+<p><code>{</code></p>
+<p>​    <code>while(top-&gt;next!=NULL)</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>snode&lt;t&gt;* temp=top-&gt;next;</code></p>
+<p>​        <code>top-&gt;next=temp-&gt;next;</code></p>
+<p>​        <code>delete temp;</code></p>
+<p>​    <code>}</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::push(t dat)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(isfull())</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>else</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>snode&lt;t&gt;* temp=new snode&lt;t&gt;;</code></p>
+<p>​        <code>temp-&gt;data=dat;</code></p>
+<p>​        <code>temp-&gt;next=top-&gt;next;</code></p>
+<p>​        <code>top-&gt;next=temp;</code></p>
+<p>​        <code>++count;</code></p>
+<p>​        <code>return true;</code></p>
+<p>​    <code>}</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::pop(t&amp; re)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(isempty())</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>else</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>re=top-&gt;data;</code></p>
+<p>​        <code>snode&lt;t&gt;* temp=top-&gt;next;</code></p>
+<p>​        <code>top-&gt;next=temp-&gt;next</code></p>
+<p>​        <code>delete temp;</code></p>
+<p>​        <code>--count;</code></p>
+<p>​        <code>return true;</code></p>
+<p>​    <code>}</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>t stack&lt;t&gt;::gettop()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return top-&gt;next-&gt;data;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::isempty()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return count==0;</code>    </p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool stack&lt;t&gt;::isfull()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return (count&gt;=max);</code></p>
+<p><code>}</code></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/El Greco/" class="archive-article-date">
-  	<time datetime="2019-06-30T10:15:24.881Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Art</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://momhunter.github.io/2019/07/10/栈/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/Johannes Vermeer/" class="archive-article-date">
-  	<time datetime="2019-06-30T09:52:30.636Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/06/C++中的输出/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Art</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -256,8 +507,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
