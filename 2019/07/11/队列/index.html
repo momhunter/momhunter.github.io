@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://momhunter.github.io">
-  <title>Archives: 2019 | Kyrie&#39;s log</title>
+  <title>Kyrie&#39;s log</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="队列">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Kyrie&#39;s log">
-<meta property="og:url" content="https://momhunter.github.io/archives/2019/index.html">
+<meta property="og:url" content="https://momhunter.github.io/2019/07/11/队列/index.html">
 <meta property="og:site_name" content="Kyrie&#39;s log">
+<meta property="og:description" content="队列">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-11T08:17:08.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kyrie&#39;s log">
+<meta name="twitter:description" content="队列">
   
     <link rel="alternative" href="/atom.xml" title="Kyrie&#39;s log" type="application/atom+xml">
   
@@ -150,30 +155,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-队列" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列<a id="more"></a></h1><p>基于c++实现的模版类：</p>
+<p>顺序结构实现</p>
+<p>功能实现需求：是否为空，返回元素个数，pop，push，获得队首元素的值，返回队尾元素的值</p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>class queue</code></p>
+<p><code>{</code></p>
+<p>​    <code>t* data;</code></p>
+<p>​    <code>int front;</code></p>
+<p>​    <code>int rear;</code></p>
+<p><code>public:</code></p>
+<p>​    <code>queue();</code></p>
+<p>​    <code>~queue();</code></p>
+<p>​    <code>bool push(const t&amp; dat);</code></p>
+<p>​    <code>bool pop(t&amp; re);</code></p>
+<p>​    <code>t&amp; gettop();</code></p>
+<p>​    <code>int size();</code></p>
+<p>​    <code>void clear();</code></p>
+<p>​    <code>void destroy();</code></p>
+<p>​    <code>bool isempty();</code></p>
+<p>​    <code>bool isfull();</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>queue&lt;t&gt;::queue()</code></p>
+<p><code>{</code></p>
+<p>​    <code>data=new t[10];</code></p>
+<p>​    <code>front=rear=0;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>queue&lt;t&gt;::~queue()</code></p>
+<p><code>{</code></p>
+<p>​    <code>destroy();</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>void queue&lt;t&gt;::destroy()</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(data!=NULL)</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>delete[] data;</code></p>
+<p>​        <code>data=NULL;</code></p>
+<p>​    <code>}</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>void queue&lt;t&gt;::clear()</code></p>
+<p><code>{</code></p>
+<p>​    <code>front=rear=0;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>t&amp; queue&lt;t&gt;::gettop()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return data[front];</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>int queue&lt;t&gt;::size()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return (rear-front+max)%max;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::isfull()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return (rear+1)%max==front;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::isempty()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return front==rear;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::push(t&amp; dat)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(isfull())</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>data[rear]=dat;</code></p>
+<p>​    <code>rear=(rear+1)%max;</code></p>
+<p>​    <code>return true;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::pop(t&amp; re)</code></p>
+<p><code>{</code></p>
+<p>​    <code>if(isempty())</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>re=data[front];</code></p>
+<p>​    <code>front=(front+1)%max;</code></p>
+<p>​    <code>return true;</code></p>
+<p><code>}</code></p>
+<p>链式结构实现</p>
+<p>功能实现需求：进队，出队，判断空。</p>
+<p>先定义结点类：</p>
+<p><code>template&lt;typename t&gt;</code></p>
+<p><code>struct qnode</code></p>
+<p><code>{</code></p>
+<p>​    <code>t data;</code></p>
+<p>​    <code>qnode&lt;t&gt;*next;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>class queue</code></p>
+<p><code>{</code></p>
+<p>​    <code>qnode&lt;t&gt;* front;</code></p>
+<p>​    <code>qnode&lt;t&gt;* rear;</code></p>
+<p>​    <code>int length;</code></p>
+<p><code>public:</code></p>
+<p>​    <code>queue();</code></p>
+<p>​    <code>~queue();</code></p>
+<p>​    <code>bool isempty();</code></p>
+<p>​    <code>bool enque(t&amp; d);</code></p>
+<p>​    <code>bool deque(t&amp; re);</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>queue&lt;t&gt;::queue()</code></p>
+<p><code>{</code></p>
+<p>​    <code>rear=new qnode&lt;t&gt;;</code></p>
+<p>​    <code>front=new qnode&lt;t&gt;;</code></p>
+<p>​    <code>rear=front=NULL;</code></p>
+<p>​    <code>length=0;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>queue&lt;t&gt;::~queue()</code></p>
+<p><code>{</code></p>
+<p>​    <code>while(rear!=NULL||front!=NULL)</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>if(rear!=NULL)</code></p>
+<p>​        <code>{</code></p>
+<p>​            <code>qnode&lt;t&gt;*tmp=rear-&gt;next;</code></p>
+<p>​            <code>rear-&gt;next=tmp-&gt;next;</code></p>
+<p>​            <code>delete tmp;</code></p>
+<p>​        <code>}</code></p>
+<p>​        <code>if(front!=NULL)</code></p>
+<p>​        <code>{</code></p>
+<p>​            <code>qnode&lt;t&gt;*tmp=front-&gt;next;</code></p>
+<p>​            <code>front-&gt;next=tmp-&gt;next;</code></p>
+<p>​            <code>delete tmp;</code></p>
+<p>​        <code>}</code></p>
+<p>​    <code>}</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::isempty()</code></p>
+<p><code>{</code></p>
+<p>​    <code>return (rear==NULL||front==NULL);</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::enque(t&amp; d)</code></p>
+<p><code>{</code></p>
+<p>​    <code>qnode&lt;t&gt;*tmp=new qnode&lt;t&gt;;</code></p>
+<p>​    <code>tmp-&gt;data=d;</code></p>
+<p>​    <code>tmp-&gt;next=NULL;</code></p>
+<p>​    <code>if(isempty())</code></p>
+<p>​        <code>front=rear=tmp;</code></p>
+<p>​    <code>else</code></p>
+<p>​    <code>{</code></p>
+<p>​        <code>rear-&gt;next=tmp;</code></p>
+<p>​        <code>rear=tmp;</code></p>
+<p>​    <code>}</code></p>
+<p>​    <code>return true;</code></p>
+<p><code>}</code></p>
+<p><code>template&lt;class t&gt;</code></p>
+<p><code>bool queue&lt;t&gt;::deque(t&amp; re)</code></p>
+<p><code>{</code></p>
+<p>​    <code>qnode&lt;t&gt;* tmp=new qnode&lt;t&gt;;</code></p>
+<p>​    <code>if(isempty())</code></p>
+<p>​        <code>return false;</code></p>
+<p>​    <code>else</code></p>
+<p>​        <code>tmp=front;</code></p>
+<p>​    <code>if(front==rear)</code></p>
+<p>​        <code>front=rear=NULL;</code></p>
+<p>​    <code>else</code></p>
+<p>​        <code>front=front-&gt;next;</code></p>
+<p>​    <code>re=tmp-&gt;data;</code></p>
+<p>​    <code>delete tmp;</code></p>
+<p>​    <code>return true;</code></p>
+<p><code>}</code></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/11/队列/" class="archive-article-date">
-  	<time datetime="2019-07-11T08:17:08.003Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-11</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,310 +369,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://momhunter.github.io/2019/07/11/队列/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/10/栈/" class="archive-article-date">
-  	<time datetime="2019-07-10T15:37:06.679Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/06/C++中的输出/" class="archive-article-date">
-  	<time datetime="2019-07-06T15:04:00.685Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-06</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/03/Beyond the wall of sleep/" class="archive-article-date">
-  	<time datetime="2019-07-03T02:40:23.040Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-03</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Cthulu</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/02/sacrament/" class="archive-article-date">
-  	<time datetime="2019-07-02T02:39:46.028Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-02</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Religion</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/02/trinity/" class="archive-article-date">
-  	<time datetime="2019-07-02T02:10:42.252Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-02</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Religion</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/01/线性表/" class="archive-article-date">
-  	<time datetime="2019-07-01T11:23:05.441Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-01</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/伏见稻荷大社/" class="archive-article-date">
-  	<time datetime="2019-06-30T10:24:10.293Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Mythology</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/Lilium/" class="archive-article-date">
-  	<time datetime="2019-06-30T10:23:40.281Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Religion</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/Eye of GodProvidence/" class="archive-article-date">
-  	<time datetime="2019-06-30T10:22:24.070Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Religion</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/07/10/栈/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -512,8 +491,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
